@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>랜덤 업 다운 게임</title>
+    <style>
+        body {
+            height: 100vh
+        }
+        .contWrap {
+            position: relative;
+            width: 400px;
+            background: #e6e6e6;
+            padding: 20px;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        input {
+            padding: 10px 20px;
+            font-size: 20px;
+            text-align: center;
+            max-width: 170px;
+        }
+        button {
+            font-size: 20px;
+            padding: 8px 20px;
+        }
+    </style>
+
+    <script>
+        window.onload = function () {
+            var input = document.getElementsByTagName('input')[0]
+            var result = document.querySelector('.result')
+
+            var button = document.querySelector('.startBtn')
+
+            function resultFunc() {
+                var value = input.value
+
+                if (value < randomNum) {
+                    result.innerHTML = resultArr[0]
+                } else if (value > randomNum) {
+                    result.innerHTML = resultArr[1]
+                } else {
+                    result.innerHTML = resultArr[2]
+                }
+            }
+
+            button.addEventListener('click', function () {
+                resultFunc()
+            })
+
+            var resultArr = ['업▲', '다운▼', '정답!']
+            var randomNum = Math.round(Math.random() * 9)+1
+            console.log('random=' + randomNum)
+        }
+    </script>
+</head>
+<body>
+
+<div class="contWrap">
+    <h3>내가 생각한 숫자는 몇 일까요?</h3>
+    <p class="result">(1부터 10사이)</p>
+    <input max="10" min="1" type="number" value="1">
+    <button class="startBtn" type="button">확인</button>
+</div>
+
+</body>
+</html>

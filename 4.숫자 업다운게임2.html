@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>숫자업다운 게임</title>
+    <style>
+        body {
+            height: 100vh;
+            background: linear-gradient(120deg, #0272a4, #f6a564);
+        }
+
+        .contWrap {
+            position: relative;
+            width: 400px;
+            background: rgba(255, 255, 255, .7);
+            padding: 50px 20px;
+            top: 40%;
+            left: 50%;
+            transition: transform 2s ease;
+            transform: translate(0, 0);
+            text-align: center;
+            border-radius: 20px;
+        }
+
+        input {
+            padding: 10px 20px;
+            font-size: 20px;
+            text-align: center;
+            max-width: 60px;
+        }
+
+        button {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 40px;
+        }
+    </style>
+    <script>
+
+        // 변수, 조건문 if, 배열, setTimeout
+        window.onload = function () {
+            var input = document.getElementsByTagName('input')[0];
+            var result = document.querySelector('.result')
+            var button = document.querySelector('.startBtn')
+            var contWrap = document.querySelector('.contWrap')
+            var transitionBtn = document.querySelector('.transitionBtn')
+
+            transitionBtn.addEventListener('click', function () {
+                contWrap.style.transform = 'translate(-50%,-50%)'
+            })
+
+            button.addEventListener('click', function () {
+                resultFunc()
+            });
+
+            var resultArr = ['업▲', '다운▼', '정답!']
+            var randomNum = Math.round(Math.random() * 9) + 1
+
+            function resultFunc() {
+                var value = input.value
+                if (value < randomNum) {
+                    result.innerHTML = resultArr[0]
+                } else if (value > randomNum) {
+                    result.innerHTML = resultArr[1]
+                } else {
+                    result.innerHTML = resultArr[2]
+                    alert('정답');
+
+                    setTimeout(function () {
+                        resetFunc()
+                    }, 1000);
+                }
+
+                function resetFunc() {
+                    input.value = 1
+                    result.innerHTML = '한판더! (1부터 10사이 정수)'
+                    randomNum = Math.round(Math.random() * 9) + 1
+                    console.log(randomNum)
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="contWrap">
+    <h2>내가 생각한 숫자를 맞춰보세요</h2>
+    <p class="result"></p>
+    <input max="10" min="1" type="number" value="1">
+    <button class="startBtn" type="button">확인</button>
+    <button class="transitionBtn" type="button">이동</button>
+</div>
+
+</body>
+</html>

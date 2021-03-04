@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>연봉 계산기</title>
+    <style>
+        body {
+            height: 100vh;
+        }
+
+        .contWrap {
+            position: relative;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        button {
+            font-size: 18px;
+            padding: 20px 35px;
+        }
+
+        h1 {
+            font-size: 50px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var startBtn = document.querySelector('.startBtn')
+            var num = document.querySelector('.num')
+
+            let timer;
+
+            startBtn.addEventListener('click', function () {
+                interval()
+            })
+
+            function interval() {
+                clearInterval(timer)
+                let secNum = 0
+                timer = setInterval(function () {
+                    secNum++
+                    num.innerHTML = secNum
+                }, 10)
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="contWrap">
+    <button class="startBtn" type="button">더하기 시작</button>
+    <h1 class="num">0</h1>
+</div>
+</body>
+</html>

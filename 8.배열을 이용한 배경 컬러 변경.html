@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>배열을 이용한 배경 컬러 변경</title>
+</head>
+    <style>
+        body {
+            transition: background 2.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+
+        h1 {
+            font-size: 50px;
+            font-weight: bold;
+        }
+
+        button {
+            font-size: 20px;
+            padding: 10px 30px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var preBtn = document.querySelector('.preBtn')
+            var nextBtn = document.querySelector('.nextBtn')
+            var h1 = document.getElementsByTagName('h1')[0]
+            var bgColorArr = ['#85FFBD', '#FFFB7D', '#E0C3FC', '#00DBDE']
+            var pageNum = Math.round(Math.random() * (bgColorArr.length - 1))
+            var totalNum = bgColorArr.length
+
+            preBtn.addEventListener('click', function () {
+                pageNum > 0 ? pageNum-- : pageNum = totalNum - 1
+
+                bgColorChange()
+            });
+
+            nextBtn.addEventListener('click', function () {
+                pageNum < totalNum - 1 ? pageNum++ : pageNum = 0
+
+                bgColorChange()
+            });
+
+            bgColorChange()
+
+            function bgColorChange() {
+                h1.innerHTML = pageNum + ' 페이지 입니다.'
+                document.getElementsByTagName('body')[0].style.backgroundColor = bgColorArr[pageNum]
+            }
+        }
+    </script>
+<body>
+    <button class="preBtn" type="button">PREV</button>
+    <button class="nextBtn" type="button">NEXT</button>
+    <h1>0 페이지 입니다.</h1>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>연봉계산기 2</title>
+
+    <style>
+
+        body {
+            height: 100vh;
+        }
+
+        .contWrap {
+            padding: 60px;
+            background: #e2dfdf;
+            position: relative;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        input {
+            padding: 15px;
+            text-align: center;
+        }
+
+        button {
+            font-size: 15px;
+            padding: 12px 20px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var btn = document.querySelector('.startBtn')
+            var inp
+            var sec = document.querySelector('.sec')
+            var money
+            var div
+            var secMoney
+            var timer
+
+            function interval() {
+                clearInterval(timer)
+                var s = 0
+                timer = setInterval(function () {
+                    s++
+                    sec.innerHTML = `당신은 ${s}초에 ${(s*secMoney).toFixed(1)}원을 벌고 있습니다`
+                }, 1000)
+            }
+
+            btn.addEventListener('click', function () {
+                inp = document.querySelector('input')
+                money = inp.value * 10000
+                div = 3600 * 24 * 365
+                secMoney = money / div
+                interval()
+            })
+        }
+    </script>
+</head>
+<body>
+<div class="contWrap">
+    <h3>연봉을 입력해보세요(만)</h3>
+    <input type="number" value="5000">
+    <button class="startBtn" type="button">확인</button>
+    <p class="sec">당신은 1초에 얼마를 벌고 있을까요?</p>
+</div>
+
+</body>
+</html>

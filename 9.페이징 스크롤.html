@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>페이징</title>
+    <style>
+        body {
+            overflow: hidden;
+            transition: all 2.5s cubic-bezier(0.075, 0.82, 0.165,1);
+        }
+        .navi {
+            position: fixed;
+            top: 50%;
+            left: 46%;
+            transform: translate(-50%, -50%);
+        }
+
+        h1 {
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 30px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        section {
+            height: 100vh;
+            width: 100vw;
+            border-top: 5px dashed rgba(0,0,0,.5);
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var prevBtn = document.querySelector('.prevBtn')
+            var nextBtn = document.querySelector('.nextBtn')
+            var h1 = document.getElementsByTagName('h1')[0]
+            var bgColorArr = ['#dcff32', '#24dc69', '#46abff', '#ff2685']
+            var section = document.getElementsByTagName('section')
+
+            var pageNum = 0
+            var totalPageNum = bgColorArr.length-1
+
+            prevBtn.addEventListener('click', function () {
+                if (pageNum > 0) {
+                    pageNum--
+                }
+                pageChangeFunc()
+            })
+
+            nextBtn.addEventListener('click', function () {
+                if (pageNum < totalPageNum) {
+                    pageNum++
+                }
+                pageChangeFunc()
+            })
+
+            function pageChangeFunc() {
+                h1.innerHTML = (pageNum +1) + ' 페이지 입니다.'
+                document.getElementsByTagName('body')[0].style.background = bgColorArr[pageNum]
+
+                // window.scrollTo(0, section[pageNum].offsetTop)
+                window.scrollTo({
+                    top: section[pageNum].offsetTop,
+                    behavior: 'smooth'
+                })
+            }
+
+            pageChangeFunc()
+        }
+    </script>
+</head>
+<body>
+<div class="navi">
+    <button class="prevBtn" type="button">PREV</button>
+    <button class="nextBtn" type="button">NEXT</button>
+    <h1></h1>
+</div>
+
+<section>
+    <h2>page 1</h2>
+</section>
+<section>
+    <h2>page 2</h2>
+</section>
+<section>
+    <h2>page 3</h2>
+</section>
+<section>
+    <h2>page 4</h2>
+</section>
+</body>
+</html>

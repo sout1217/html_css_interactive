@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>페이징 스크롤 이동</title>
+    <style>
+        body {
+            overflow-x: hidden;
+            transition: all 2.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+
+        .navi {
+            position: fixed;
+            top: 50%;
+            left: 46%;
+            transform: translate(-50%, -50%);
+        }
+
+        h1 {
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 30px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        section {
+            height: 100vh;
+            width: 100vw;
+            border-top: 1px dashed rgba(0, 0, 0, .5);
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var prevBtn = document.querySelector('.prevBtn')
+            var nextBtn = document.querySelector('.nextBtn')
+            var h1 = document.getElementsByTagName('h1')[0]
+            var bgColorArr = ['#dcff32', '#24dc69', '#46abff', '#ff2685']
+            var section = document.getElementsByTagName('section')
+
+            var pageNum = 0
+            var totalNum = bgColorArr.length
+
+            prevBtn.addEventListener('click', function () {
+                if (pageNum > 0) {
+                    pageNum--
+                }
+                pageChangeFunc()
+            })
+
+            nextBtn.addEventListener('click', function () {
+                if (pageNum < totalNum - 1) {
+                    pageNum++
+                }
+                pageChangeFunc()
+            })
+
+            function pageChangeFunc() {
+                h1.innerHTML = ((pageNum + 1) + ' 페이지 입니다.')
+                document.getElementsByTagName('body')[0].style.background = bgColorArr[pageNum]
+            }
+
+            pageChangeFunc()
+
+            window.addEventListener('scroll', function () {
+                // 스크로롤을 가져오는 1번째 방법
+                var scroll1 = this.scrollY
+                console.log('current scroll= ', scroll1)
+
+                // 스크롤을 가져오는 2번째 방법
+                // var scroll2 = document.documentElement.scrollTop;
+                // console.log(scroll1, scroll2)
+
+                // 첫번째 방법
+                // 1차원 적이지만 페이지 수가 2개 정도면 괜찮다
+                // if (scroll1 > section[0].offsetTop) {
+                //     pageNum = 0
+                // }
+                // if (scroll1 > section[1].offsetTop) {
+                //     pageNum = 1
+                // }
+                // if (scroll1 > section[2].offsetTop) {
+                //     pageNum = 2
+                // }
+                // if (scroll1 > section[3].offsetTop) {
+                //     pageNum = 3
+                // }
+
+                // 두번째 방법
+                for (let i = 0; i < totalNum; i++) {
+                    console.log(i)
+
+                    // 첫 번째 방법
+                    // if (scroll1 > section[i].offsetTop &&
+                    //     scroll1 < section[i].offsetTop + section[i].offsetHeight) {
+                    //     console.log(`selction[${i}].offsetTop= ${section[i].offsetTop}`)
+                    //     console.log(`selction[${i}].offsetHeight= ${section[i].offsetHeight}`)
+                    //     pageNum = i;
+                    //     break
+                    // }
+
+                    // 두 번째 방법
+                    if (scroll1 > section[i].offsetTop - window.innerHeight / 2 &&
+                        scroll1 < section[i].offsetTop - window.innerHeight / 2 + section[i].offsetHeight) {
+                        console.log(`window.outerHeight/2= ${window.outerHeight/2}`)
+                        console.log(`selction[${i}].offsetTop= ${section[i].offsetTop}`)
+                        console.log(`selction[${i}].offsetHeight= ${section[i].offsetHeight}`)
+                        pageNum = i;
+                        console.log(section[i].offsetHeight)
+                        break
+                    }
+                }
+
+                pageChangeFunc()
+
+            });
+        }
+    </script>
+</head>
+<body>
+<div class="navi">
+    <button class="prevBtn" type="button">PREV</button>
+    <button class="nextBtn" type="button">NEXT</button>
+    <h1></h1>
+</div>
+
+<section>
+    <h2>page 1</h2>
+</section>
+<section>
+    <h2>page 2</h2>
+</section>
+<section>
+    <h2>page 3</h2>
+</section>
+<section>
+    <h2>page 4</h2>
+</section>
+</body>
+</html>
